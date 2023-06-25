@@ -18,8 +18,6 @@ CREATE TABLE IF NOT EXISTS VEICULO(
     carro_lateral BOOLEAN,
     tipo_acoplamento TEXT,
     peso DOUBLE,
-    carga_max_suportada DOUBLE,
-    carga_max_acoplamento DOUBLE,
     FOREIGN KEY (cpf) REFERENCES MOTORISTA(cpf) ON DELETE RESTRICT,
 	
 	check(categoria = 'A' or categoria = 'B' or categoria = 'C' or categoria = 'D' or categoria = 'E'),
@@ -65,6 +63,16 @@ CREATE TABLE IF NOT EXISTS CNH(
 	nome_mae TEXT NOT NULL,
 	validade DATE NOT NULL,
     FOREIGN KEY (cpf) REFERENCES MOTORISTA(cpf) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS CATEGORIA (
+    id_categoria INTEGER PRIMARY KEY NOT NULL,
+    n_habilitacao VARCHAR(15) NOT NULL,
+    tipo VARCHAR(3) NOT NULL,
+
+    FOREIGN KEY (n_habilitacao) REFERENCES CNH(n_habilitacao) ON DELETE CASCADE,
+
+    check(tipo = 'A' or tipo = 'B' or tipo = 'C' or tipo = 'D' or tipo = 'E')
 );
 
 CREATE TABLE IF NOT EXISTS DATA_EMISSAO(
