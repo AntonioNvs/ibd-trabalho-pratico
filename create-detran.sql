@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS VEICULO(
 			categoria = 'A' AND
 			(num_rodas = 2 or num_rodas = 3) AND
 			max_passageiros < 3 AND
-            tipo_acoplamento = 'carro lateral'
+            (tipo_acoplamento = 'carro lateral' OR tipo_acoplamento = '')
 		) or (
 			categoria = 'B' AND
 		    tipo_acoplamento IS NOT NULL AND
