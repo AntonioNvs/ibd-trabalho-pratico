@@ -15,9 +15,8 @@ CREATE TABLE IF NOT EXISTS VEICULO(
     num_rodas INTEGER NOT NULL,
     max_passageiros INTEGER NOT NULL,
     cpf TEXT NOT NULL,
-    carro_lateral BOOLEAN,
-    tipo_acoplamento TEXT,
-    peso DOUBLE,
+    tipo_acoplamento TEXT NOT NULL,
+    peso DOUBLE NOT NULL,
     FOREIGN KEY (cpf) REFERENCES MOTORISTA(cpf) ON DELETE RESTRICT,
 	
 	check(categoria = 'A' or categoria = 'B' or categoria = 'C' or categoria = 'D' or categoria = 'E'),
@@ -26,28 +25,24 @@ CREATE TABLE IF NOT EXISTS VEICULO(
 			categoria = 'A' AND
 			(num_rodas = 2 or num_rodas = 3) AND
 			max_passageiros < 3 AND
-            peso IS NOT NULL
+            tipo_acoplamento = 'carro lateral'
 		) or (
 			categoria = 'B' AND
-		    carro_lateral IS FALSE AND
 		    tipo_acoplamento IS NOT NULL AND
             peso <= 3500 AND
             max_passageiros <= 8
 		) or (
 			categoria = 'C' AND
-			carro_lateral IS FALSE AND
 		    tipo_acoplamento IS NOT NULL AND
             peso >= 3500 AND peso <= 6001 AND
             max_passageiros <= 3
         ) or (
 			categoria = 'D' AND
-			carro_lateral IS FALSE AND
 		    tipo_acoplamento IS NOT NULL AND
             peso >= 3500 AND peso <= 6001 AND
             max_passageiros > 8
         ) or (
 			categoria = 'E' AND
-			carro_lateral IS FALSE AND
 		    tipo_acoplamento IS NOT NULL AND
             peso >= 6000
         )
